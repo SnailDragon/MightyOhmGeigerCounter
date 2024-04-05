@@ -29,9 +29,13 @@ class GeigerCounter {
             STATIC_GEIGER_COUNT++;
         }
     public:
+        GeigerCounter() {}
         GeigerCounter(int8_t geigerPin);
         GeigerCounter(int8_t geigerPin, unsigned long minimumSamplePeriod_ms);
         
+        void begin(int8_t geigerPin);
+        void begin(int8_t geigerPin, unsigned long minimumSamplePeriod_ms);
+
         // blocking functions
         float getCPSBlocking(unsigned long samplePeriod_ms);
         float getDoseBlocking(unsigned long samplePeriod_ms);

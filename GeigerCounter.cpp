@@ -37,6 +37,31 @@ GeigerCounter::GeigerCounter(int8_t geigerPin, unsigned long minimumSamplePeriod
 }
 
 /**
+ * @brief If the empty (no param) constructor is used, this can be used to initialize. Or reinitialize after any initial constructor
+ * 
+ * @param geigerPin Pin connected to the Geiger Counter's data or "pulse" output (make sure that it is interrupt-enabled)
+ */
+void GeigerCounter::begin(int8_t geigerPin) {
+    attachInterrupt(digitalPinToInterrupt(geigerPin), this->counter, FALLING);
+    this->refreshSample();
+    this->lastCPSMeasurement = 0; 
+    this->minimumSamplePeriod_ms = 1000; 
+}
+
+/**
+ * @brief If the empty (no params) constructor is used, this can be used to initialize. Or reinitialize after any initial constructor
+ * 
+ * @param geigerPin Pin connected to the Geiger Counter's data or "pulse" output (make sure that it is interrupt-enabled)
+ * @param minimumSamplePeriod_ms Minimum sample period in ms for "running" functions
+ */
+void GeigerCounter::begin(int8_t geigerPin, unsigned long minimumSamplePeriod_ms){
+    attachInterrupt(digitalPinToInterrupt(geigerPin), this->counter, FALLING);
+    this->refreshSample();
+    this->lastCPSMeasurement = 0; 
+    this->minimumSamplePeriod_ms = minimumSamplePeriod_ms;
+}
+
+/**
  * @brief Calculates CPS for the specified sample period, starting at function call. 
  * 
  * @param samplePeriod_ms Period to sample over

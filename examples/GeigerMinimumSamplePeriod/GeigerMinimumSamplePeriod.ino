@@ -14,11 +14,13 @@
 #define GEIGER_PIN A2
 #define MINIMUM_SAMPLE_PERIOD_MS 5000
 
-GeigerCounter gc(GEIGER_PIN, MINIMUM_SAMPLE_PERIOD_MS);
+GeigerCounter gc;
 
 void setup(){
     Serial.begin(9600);
     while(!Serial);
+
+    gc.begin(GEIGER_PIN, MINIMUM_SAMPLE_PERIOD_MS);
 
     Serial.println("Beginning Geiger Counter Test...");
     delay(1000);

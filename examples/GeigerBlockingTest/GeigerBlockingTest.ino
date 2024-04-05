@@ -15,11 +15,13 @@
 
 #define SAMPLE_PERIOD 1000
 
-GeigerCounter gc(GEIGER_PIN);
+GeigerCounter gc;
 
 void setup(){
     Serial.begin(9600);
     while(!Serial);
+
+    gc.begin(GEIGER_PIN);
 
     Serial.println("Beginning Geiger Counter Blocking Test...");
     delay(1000);
