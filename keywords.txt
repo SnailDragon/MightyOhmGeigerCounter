@@ -1,0 +1,8 @@
+GeigerCounter   KEYWORD1
+getCPSBlocking  KEYWORD2
+getDoseBlocking KEYWORD2
+getCPSRunning   KEYWORD2
+getInstCPSRunning   KEYWORD2
+getDoseRunning  KEYWORD2
+getInstDoseRunning  KEYWORD2
+refreshSample   KEYWORD2
