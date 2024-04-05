@@ -1,2 +1,4 @@
-# Mighty_Ohm_Geiger_Counter
-Arduino library for the Might Ohm Geiger Counter (https://mightyohm.com/blog/products/geiger-counter/) 
+# Mighty Ohm Geiger Counter Arduino Library 
+By Tyler Nielsen 
+---------------------
+An interrupt-based Arduino library for interfacing with the [Might Ohm Geiger Counter's](https://mightyohm.com/blog/products/geiger-counter/) "pulse" output. 
