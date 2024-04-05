@@ -58,7 +58,7 @@ float GeigerCounter::getCPSBlocking(unsigned long samplePeriod_ms){
 float GeigerCounter::getDoseBlocking(unsigned long samplePeriod_ms){
     float CPS = this->getCPSBlocking(samplePeriod_ms);
 
-    return (CPS / 60.0) * SCALE_FACTOR;
+    return ((CPS * 60.0) * SCALE_FACTOR) / 10000.0;
 }
 
 /**
@@ -119,7 +119,7 @@ float GeigerCounter::getInstCPSRunning(){
 float GeigerCounter::getDoseRunning() {
     float CPS = this->getCPSRunning();
 
-    return (CPS / 60.0) * SCALE_FACTOR;
+    return ((CPS * 60.0) * SCALE_FACTOR) / 10000.0;
 }
 
 /**
@@ -131,7 +131,7 @@ float GeigerCounter::getDoseRunning() {
 float GeigerCounter::getInstDoseRunning() {
     float CPS = this->getInstCPSRunning();
 
-    return (CPS / 60.0) * SCALE_FACTOR;
+    return ((CPS * 60.0) * SCALE_FACTOR) / 10000.0;
 }
 
 /**
