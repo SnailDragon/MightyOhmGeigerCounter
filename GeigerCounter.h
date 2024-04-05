@@ -31,9 +31,16 @@ class GeigerCounter {
     public:
         GeigerCounter(int8_t geigerPin);
         GeigerCounter(int8_t geigerPin, unsigned long minimumSamplePeriod_ms);
-        float getCPS();
-        float getInstCPS();
-        float getDose();
+        
+        // blocking functions
+        float getCPSBlocking(unsigned long samplePeriod_ms);
+        float getDoseBlocking(unsigned long samplePeriod_ms);
+
+        // running functions
+        float getCPSRunning();
+        float getInstCPSRunning();
+        float getDoseRunning();
+        void refreshSample(); 
 
 };
 

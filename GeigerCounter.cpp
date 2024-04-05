@@ -11,11 +11,6 @@
 
 #include "GeigerCounter.h"
 
-/**
- * @brief Construct a new GeigerCounter object, uses default minimum sample period of 1000 ms
- * 
- * @param geigerPin Pin that the data or "pulse" of the Geiger Counter is connected to 
- */
 GeigerCounter::GeigerCounter(int8_t geigerPin){
     attachInterrupt(digitalPinToInterrupt(geigerPin), this->counter, FALLING);
     this->samplePeriodStart = millis();
@@ -23,12 +18,6 @@ GeigerCounter::GeigerCounter(int8_t geigerPin){
     this->minimumSamplePeriod_ms = 1000; 
 }
 
-/**
- * @brief Construct a new GeigerCounter object
- * 
- * @param geigerPin Pin that the data or "pulse" of the Geiger Counter is connected to 
- * @param minimumSamplePeriod_ms The minimum period for each CPS measurement in ms 
- */
 GeigerCounter::GeigerCounter(int8_t geigerPin, unsigned long minimumSamplePeriod_ms){
     attachInterrupt(digitalPinToInterrupt(geigerPin), this->counter, FALLING);
     this->samplePeriodStart = millis();
@@ -36,15 +25,20 @@ GeigerCounter::GeigerCounter(int8_t geigerPin, unsigned long minimumSamplePeriod
     this->minimumSamplePeriod_ms = minimumSamplePeriod_ms;
 }
 
-/**
- * @brief Calculates the Counts Per Second (CPS) with guarenteed minimum sample period
- * size. If the function is called sooner than the guarenteed size the last measurement 
- * is returned (the last measurement can be from getCPS() or getInstCPS() so be careful 
- * when using both together).
- * 
- * @return float - CPS
- */
-float GeigerCounter::getCPS() {
+float GeigerCounter::getCPSBlocking(unsigned long samplePeriod_ms){
+    this->refreshSample();
+    delay(samplePeriod_ms);
+    
+    return this->getInstCPSRunning();
+}
+
+float GeigerCounter::getDoseBlocking(unsigned long samplePeriod_ms){
+    float CPS = this->getCPSBlocking(samplePeriod_ms);
+
+    return (CPS / 60.0) * SCALE_FACTOR;
+}
+
+float GeigerCounter::getCPSRunning() {
     unsigned long samplePeriod = millis() - this->samplePeriodStart;
     float CPS = -1;
 
@@ -65,13 +59,8 @@ float GeigerCounter::getCPS() {
     
 }
 
-/**
- * @brief Calculates the Counts Per Second (CPS) without guarenteed minimum sample period 
- * size. Sampling this way too quickly can lead to inaccurate readings. 
- * 
- * @return float - CPS 
- */
-float GeigerCounter::getInstCPS(){
+
+float GeigerCounter::getInstCPSRunning(){
     unsigned long samplePeriod = millis() - this->samplePeriodStart;
     float CPS = -1;
     noInterrupts();
@@ -85,14 +74,20 @@ float GeigerCounter::getInstCPS(){
     return CPS;
 }
 
-/**
- * @brief Calculates the measured dose in uSv/hr, using getCPS() with minimum sample 
- * period size. 
- * 
- * @return float - Dose in uSv/hr 
- */
-float GeigerCounter::getDose() {
-    float CPS = this->getCPS();
+
+float GeigerCounter::getDoseRunning() {
+    float CPS = this->getCPSRunning();
 
     return (CPS / 60.0) * SCALE_FACTOR;
+}
+
+void GeigerCounter::refreshSample(){
+
+    noInterrupts();
+
+    STATIC_GEIGER_COUNT = 0;
+
+    interrupts();
+
+    this->samplePeriodStart = millis();
 }

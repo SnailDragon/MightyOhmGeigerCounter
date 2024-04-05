@@ -1,7 +1,7 @@
 /**
  * @file GeigerTest.ino
  * @author Tyler Nielsen
- * @brief Test out of getCPS() and getDose()
+ * @brief Example code for basic Might Ohm Geiger Counter Arduino library
  * @version 0.1
  * @date 2024-04-05
  * 
@@ -19,12 +19,13 @@ void setup(){
     Serial.begin(9600);
     while(!Serial);
 
-    Serial.println("Beginning Geiger Counter Test...");
+    Serial.println("Beginning Geiger Counter Running Test...");
+    delay(1000);
 }
 
 void loop(){
-    Serial.print("CPS: "); Serial.println(gc.getCPS());
-    Serial.print("Dose: "); Serial.println(gc.getDose());
+    Serial.print("CPS: "); Serial.println(gc.getCPSRunning());
+    Serial.print("Dose: "); Serial.println(gc.getDoseRunning());
 
     delay(1000);
 }
