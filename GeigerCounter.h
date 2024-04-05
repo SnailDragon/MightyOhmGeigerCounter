@@ -40,6 +40,7 @@ class GeigerCounter {
         float getCPSRunning();
         float getInstCPSRunning();
         float getDoseRunning();
+        float getInstDoseRunning();
         void refreshSample(); 
 
 };
