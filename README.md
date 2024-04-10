@@ -3,3 +3,4 @@ An interrupt-based Arduino library for interfacing with the [Might Ohm Geiger Co
 
 CPS to uSv/hr conversions were based on Mighty Ohm's [ATtyiny2313 AVR source code](https://mightyohm.com/blog/products/geiger-counter/source-code/) for the Geiger Sensor. 
 
+Information on how to use the library can be found in the [example sketches](/examples/) and in the comments above the functions themselves.  
