@@ -4,9 +4,7 @@
  * @brief GeigerCounter class definition for interfacing with the "pulse" out of a Mighty Ohm Geiger Counter.
  * @version 0.1
  * @date 2024-04-05
- * 
- * @copyright Copyright (c) 2024
- * 
+ *  
  */
 
 #ifndef GEIGER_COUNTER_H

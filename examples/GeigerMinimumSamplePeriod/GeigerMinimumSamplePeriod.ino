@@ -12,7 +12,7 @@
 #include "GeigerCounter.h"
 
 #define GEIGER_PIN A2
-#define MINIMUM_SAMPLE_PERIOD_MS 5000
+#define MINIMUM_SAMPLE_PERIOD_MS 60000 // sample for a full minute (better accuracy)
 
 GeigerCounter gc;
 

@@ -5,14 +5,12 @@
  * @version 0.1
  * @date 2024-04-05
  * 
- * @copyright Copyright (c) 2024
- * 
  */
 
 #include "GeigerCounter.h"
 
 /**
- * @brief Construct a Geiger Counter object with default minimum sample period of 1000 ms. 
+ * @brief Construct a Geiger Counter object with default minimum sample period of 5000 ms. 
  * 
  * @param geigerPin Pin connected to the Geiger Counter's data or "pulse" output. Make sure that it is interrupt-enabled. 
  */
@@ -20,7 +18,7 @@ GeigerCounter::GeigerCounter(int8_t geigerPin){
     attachInterrupt(digitalPinToInterrupt(geigerPin), this->counter, FALLING);
     this->samplePeriodStart = millis();
     this->lastCPSMeasurement = 0; 
-    this->minimumSamplePeriod_ms = 1000; 
+    this->minimumSamplePeriod_ms = 5000; 
 }
 
 /**
