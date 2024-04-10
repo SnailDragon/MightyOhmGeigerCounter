@@ -9,10 +9,19 @@
  * 
  */
 
+/**
+ * This example uses the "running" functions but sets the minimum sample period. Refer to the 
+ * GeigerRunningTest.ino example for information on the running functions. 
+ */
+
 #include "GeigerCounter.h"
 
+// can be any interrupt-enabled pin (these vary based on the microcontroller you are using)
 #define GEIGER_PIN A2
-#define MINIMUM_SAMPLE_PERIOD_MS 60000 // sample for a full minute (better accuracy)
+// the desired minimum sample period, in this case for a full minute
+// longer is typically more accurate but will be less able to detect spikes 
+// as it averages the CPS over the sample period
+#define MINIMUM_SAMPLE_PERIOD_MS 60000 
 
 GeigerCounter gc;
 
